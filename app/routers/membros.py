@@ -34,6 +34,14 @@ def atualizar_membro(idMembro: int, membro_update: schemas.MembroUpdate, db: Ses
         raise HTTPException(status_code=404, detail="Membro não encontrado")
     return membro
 
+# Atualizar parcialmente membro (PATCH - atualiza apenas os campos fornecidos)
+@router.patch("/{idMembro}", response_model=schemas.MembroResponse)
+def atualizar_parcial_membro(idMembro: int, membro_update: schemas.MembroUpdate, db: Session = Depends(database.get_db)):
+    membro = crud.atualizar_membro(db, idMembro, membro_update)
+    if not membro:
+        raise HTTPException(status_code=404, detail="Membro não encontrado")
+    return membro
+
 # Deletar membro
 @router.delete("/{idMembro}", response_model=schemas.MembroResponse)
 def deletar_membro(idMembro: int, db: Session = Depends(database.get_db)):

@@ -27,9 +27,10 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         raise HTTPException(status_code=404, detail="Membro not found")
 
     # Buscar informações do cargo
-    meal = crud.get_meal_by_membro(db, idMembro=user.idMembro)
-    cargo_nome: str = "membro"  
-    if meal:
+    meals = crud.get_meal_by_membro(db, idMembro=user.idMembro)
+    cargo_nome: str = "membro"  # Valor padrão
+    if meals:
+        meal = meals[0]  # Pega o primeiro registro de meal
         cargo = crud.get_cargo(db, idCargo=meal.idCargo)
         if cargo:
             cargo_nome = cargo.nomeCargo

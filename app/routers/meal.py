@@ -23,8 +23,8 @@ def read_meal(idAdm: int, db: Session = Depends(database.get_db)):
 
 @router.get("/membro/{idMembro}", response_model=List[schemas.MealResponse])
 def read_meal_by_membro(idMembro: int, db: Session = Depends(database.get_db)):
-    db_meals = crud.get_meal_by_membro(db, idMembro=idMembro)
-    return db_meals
+    meals = crud.get_meal_by_membro(db, idMembro=idMembro)
+    return meals
 
 @router.get("/", response_model=List[schemas.MealResponse])
 def read_meals(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db)):

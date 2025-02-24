@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import membros, cargos, auth, meal
+from app.routers import membros, cargos, auth, meal, dizimos, ofertas
 from app.database import engine
 from app.models import Base
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,3 +21,5 @@ app.include_router(membros.router)
 app.include_router(cargos.router)
 app.include_router(auth.router)
 app.include_router(meal.router)
+app.include_router(dizimos.router)
+app.include_router(ofertas.router)

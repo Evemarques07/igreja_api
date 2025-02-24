@@ -87,3 +87,45 @@ class MealResponse(MealBase):
     class Config:
         orm_mode = True
 
+# Dizimo schemas
+class DizimoBase(BaseModel):
+    idMembro: Optional[int] = None
+    referencia: Optional[str] = None
+    dataRegistro: date
+    observacao: Optional[str] = None
+
+class DizimoCreate(DizimoBase):
+    pass
+
+class DizimoUpdate(BaseModel):
+    idMembro: Optional[int] = None
+    referencia: Optional[str] = None
+    dataRegistro: Optional[date] = None
+    observacao: Optional[str] = None
+
+class DizimoResponse(DizimoBase):
+    idDizimo: int
+
+    class Config:
+        orm_mode = True
+
+# Oferta schemas
+class OfertaBase(BaseModel):
+    descricao: Optional[str] = None
+    dataRegistro: date
+    observacao: Optional[str] = None
+
+class OfertaCreate(OfertaBase):
+    pass
+
+class OfertaUpdate(BaseModel):
+    descricao: Optional[str] = None
+    dataRegistro: Optional[date] = None
+    observacao: Optional[str] = None
+
+class OfertaResponse(OfertaBase):
+    idOferta: int
+
+    class Config:
+        orm_mode = True
+

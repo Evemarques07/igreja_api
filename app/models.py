@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -39,3 +39,22 @@ class Meal(Base):
 
     membro = relationship("Membro")
     cargo = relationship("Cargo")
+
+class Dizimo(Base):
+    __tablename__ = "dizimos"
+
+    idDizimo = Column(Integer, primary_key=True, index=True)
+    idMembro = Column(Integer, ForeignKey("membros.idMembro"), nullable=True)
+    referencia = Column(String, nullable=True)
+    dataRegistro = Column(Date, nullable=False)
+    observacao = Column(Text, nullable=True)
+
+    membro = relationship("Membro")
+
+class Oferta(Base):
+    __tablename__ = "ofertas"
+
+    idOferta = Column(Integer, primary_key=True, index=True)
+    descricao = Column(String, nullable=True)
+    dataRegistro = Column(Date, nullable=False)
+    observacao = Column(Text, nullable=True)
