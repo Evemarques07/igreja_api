@@ -4,14 +4,13 @@ from app.database import engine
 from app.models import Base
 from fastapi.middleware.cors import CORSMiddleware
 
-# Criar tabelas automaticamente (se não estiver usando Alembic)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="API Igreja", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permite todas as origens (apenas para desenvolvimento)
+    allow_origins=["*"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

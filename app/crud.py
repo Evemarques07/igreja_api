@@ -83,15 +83,19 @@ def criar_meal(db: Session, meal: schemas.MealCreate):
     db.refresh(db_meal)
     return db_meal
 
+# Get meal by idAdm
 def get_meal(db: Session, idAdm: int):
     return db.query(models.Meal).filter(models.Meal.idAdm == idAdm).first()
 
+# Get meal by idMembro
 def get_meal_by_membro(db: Session, idMembro: int):
     return db.query(models.Meal).filter(models.Meal.idMembro == idMembro).first()
 
+# Listar todas as meals
 def listar_meals(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Meal).offset(skip).limit(limit).all()
 
+# Atualizar meal
 def atualizar_meal(db: Session, idAdm: int, meal: schemas.MealUpdate):
     db_meal = db.query(models.Meal).filter(models.Meal.idAdm == idAdm).first()
     if db_meal:
@@ -102,6 +106,7 @@ def atualizar_meal(db: Session, idAdm: int, meal: schemas.MealUpdate):
         return db_meal
     return None
 
+# Remover meal
 def remover_meal(db: Session, idAdm: int):
     db_meal = db.query(models.Meal).filter(models.Meal.idAdm == idAdm).first()
     if db_meal:
