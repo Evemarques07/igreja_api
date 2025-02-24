@@ -28,9 +28,9 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
     # Buscar informações do cargo
     meals = crud.get_meal_by_membro(db, idMembro=user.idMembro)
-    cargo_nome: str = "membro"  # Valor padrão
+    cargo_nome: str = "membro" 
     if meals:
-        meal = meals[0]  # Pega o primeiro registro de meal
+        meal = meals[0] 
         cargo = crud.get_cargo(db, idCargo=meal.idCargo)
         if cargo:
             cargo_nome = cargo.nomeCargo

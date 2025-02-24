@@ -1,6 +1,36 @@
 from pydantic import BaseModel, EmailStr
 from datetime import date
 from typing import Optional
+import enum
+
+# Enums para schemas
+class TipoEntrada(str, enum.Enum):
+    ofertas_missionarias = "Ofertas Missionárias"
+    campanhas = "Campanhas e Propósitos Específicos"
+    eventos = "Eventos e Conferências"
+    venda_materiais = "Venda de Materiais"
+    doacoes_empresas = "Doações de Empresas ou Parceiros"
+    parcerias_ongs = "Parcerias com ONGs ou Projetos Sociais"
+    apoio_outras_igrejas = "Apoio de Outras Igrejas ou Denominações"
+    investimentos = "Investimentos"
+
+class TipoSaida(str, enum.Enum):
+    folha_pagamento = "Folha de Pagamento"
+    encargos_sociais = "Encargos Sociais e Benefícios"
+    aluguel_imovel = "Aluguel de Imóvel"
+    manutencao_templo = "Manutenção do Templo"
+    contas_mensais = "Água, Luz, Telefone e Internet"
+    compra_materiais = "Compra de Materiais"
+    ajuda_social = "Ajuda Social e Filantropia"
+    eventos_congressos = "Eventos e Congressos"
+    missoes_evangelismo = "Missões e Evangelismo"
+    taxas_impostos = "Taxas e Impostos"
+    marketing_divulgacao = "Marketing e Divulgação"
+    instrumentos_musicais = "Instrumentos Musicais e Equipamentos de Som"
+    despesas_viagens = "Despesas com Viagens"
+    seguranca = "Segurança"
+    ofertas_pastores = "Ofertas para Pastores Convidados"
+
 
 # Membros schemas
 class MembroBase(BaseModel):
@@ -92,6 +122,7 @@ class DizimoBase(BaseModel):
     idMembro: Optional[int] = None
     referencia: Optional[str] = None
     dataRegistro: date
+    valor: float 
     observacao: Optional[str] = None
 
 class DizimoCreate(DizimoBase):
@@ -101,6 +132,7 @@ class DizimoUpdate(BaseModel):
     idMembro: Optional[int] = None
     referencia: Optional[str] = None
     dataRegistro: Optional[date] = None
+    valor: Optional[float] = None 
     observacao: Optional[str] = None
 
 class DizimoResponse(DizimoBase):
@@ -109,10 +141,10 @@ class DizimoResponse(DizimoBase):
     class Config:
         orm_mode = True
 
-# Oferta schemas
 class OfertaBase(BaseModel):
     descricao: Optional[str] = None
     dataRegistro: date
+    valor: float 
     observacao: Optional[str] = None
 
 class OfertaCreate(OfertaBase):
@@ -121,6 +153,7 @@ class OfertaCreate(OfertaBase):
 class OfertaUpdate(BaseModel):
     descricao: Optional[str] = None
     dataRegistro: Optional[date] = None
+    valor: Optional[float] = None 
     observacao: Optional[str] = None
 
 class OfertaResponse(OfertaBase):
@@ -129,3 +162,46 @@ class OfertaResponse(OfertaBase):
     class Config:
         orm_mode = True
 
+# Entrada schemas
+class EntradaBase(BaseModel):
+    tipo: TipoEntrada
+    dataRegistro: date
+    valor: float
+    observacao: Optional[str] = None
+
+class EntradaCreate(EntradaBase):
+    pass
+
+class EntradaUpdate(BaseModel):
+    tipo: Optional[TipoEntrada] = None
+    dataRegistro: Optional[date] = None
+    valor: Optional[float] = None
+    observacao: Optional[str] = None
+
+class EntradaResponse(EntradaBase):
+    idEntrada: int
+
+    class Config:
+        orm_mode = True
+
+# Saida schemas
+class SaidaBase(BaseModel):
+    tipo: TipoSaida
+    dataRegistro: date
+    valor: float
+    observacao: Optional[str] = None
+
+class SaidaCreate(SaidaBase):
+    pass
+
+class SaidaUpdate(BaseModel):
+    tipo: Optional[TipoSaida] = None
+    dataRegistro: Optional[date] = None
+    valor: Optional[float] = None
+    observacao: Optional[str] = None
+
+class SaidaResponse(SaidaBase):
+    idSaida: int
+
+    class Config:
+        orm_mode = True

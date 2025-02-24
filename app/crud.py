@@ -178,3 +178,69 @@ def remover_oferta(db: Session, idOferta: int):
         db.commit()
         return True
     return False
+
+# Entrada CRUD functions
+def criar_entrada(db: Session, entrada: schemas.EntradaCreate):
+    db_entrada = models.Entrada(**entrada.dict())
+    db.add(db_entrada)
+    db.commit()
+    db.refresh(db_entrada)
+    return db_entrada
+
+def get_entrada(db: Session, idEntrada: int):
+    return db.query(models.Entrada).filter(models.Entrada.idEntrada == idEntrada).first()
+
+def listar_entradas(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Entrada).offset(skip).limit(limit).all()
+
+def atualizar_entrada(db: Session, idEntrada: int, entrada: schemas.EntradaUpdate):
+    db_entrada = db.query(models.Entrada).filter(models.Entrada.idEntrada == idEntrada).first()
+    if db_entrada:
+        for key, value in entrada.dict(exclude_unset=True).items():
+            setattr(db_entrada, key, value)
+        db.commit()
+        db.refresh(db_entrada)
+        return db_entrada
+    return None
+
+def remover_entrada(db: Session, idEntrada: int):
+    db_entrada = db.query(models.Entrada).filter(models.Entrada.idEntrada == idEntrada).first()
+    if db_entrada:
+        db.delete(db_entrada)
+        db.commit()
+        return True
+    return False
+
+# Saida CRUD functions
+def criar_saida(db: Session, saida: schemas.SaidaCreate):
+    db_saida = models.Saida(**saida.dict())
+    db.add(db_saida)
+    db.commit()
+    db.refresh(db_saida)
+    return db_saida
+
+def get_saida(db: Session, idSaida: int):
+    return db.query(models.Saida).filter(models.Saida.idSaida == idSaida).first()
+
+def listar_saidas(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Saida).offset(skip).limit(limit).all()
+
+def atualizar_saida(db: Session, idSaida: int, saida: schemas.SaidaUpdate):
+    db_saida = db.query(models.Saida).filter(models.Saida.idSaida == idSaida).first()
+    if db_saida:
+        for key, value in saida.dict(exclude_unset=True).items():
+            setattr(db_saida, key, value)
+        db.commit()
+        db.refresh(db_saida)
+        return db_saida
+    return None
+
+def remover_saida(db: Session, idSaida: int):
+    db_saida = db.query(models.Saida).filter(models.Saida.idSaida == idSaida).first()
+    if db_saida:
+        db.delete(db_saida)
+        db.commit()
+        return True
+    return False
+
+
